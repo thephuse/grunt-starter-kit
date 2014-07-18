@@ -1,0 +1,6 @@
+.git
+.DS_STORE
+thumbs.db
+node_modules
+sass-cache
+.sass-cache
