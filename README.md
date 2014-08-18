@@ -3,8 +3,8 @@ Front-end Starter Kit
 
 The Front-end Starter Kit is a skinny collection of GruntJS modules that:
 
-- Compile SCSS & SASS build using [Compass](http://compass-style.org), to plain CSS.
-- Compile CoffeeScript & JavaScript built using [Browserify](http://browserify.org), to plain JavaScript.
+- Compile SCSS & SASS written using [Compass](http://compass-style.org), to plain CSS.
+- Compile CoffeeScript & JavaScript written using [Browserify](http://browserify.org), to plain JavaScript.
 - Optionally minify the compiled CSS and JavaScript, *OR*
 - Watch for changes to the source files, re-compile the unminified versions and update the browser on-the-fly.
 
