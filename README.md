@@ -12,6 +12,7 @@
 - [Twig](http://twig.sensiolabs.org/)
 - [Grunt Watch and Live Reload](https://github.com/gruntjs/grunt-contrib-watch)
 - [Webpack](https://webpack.github.io/)
+- [ESDoc](https://esdoc.org/)
 
 All of the above tasks (aside from Grunt itself) are run via Grunt. They can be run individually, if so desired (see `gruntfile.js`), or they can be grouped in cumulative tasks listed in the Quick-Start Guide below.
 
@@ -48,6 +49,10 @@ Use the `grunt` command once you've done so, to kickstart Live Reload after an i
 ### 5. Configuration
 
 The `src/config` folder should contain only JSON files that can be used as configuration variables, both in JavaScript (using `include` statements) and in the `grunt-twig-render` task (the file location can be specified under `twigRender.static.files.data` in `gruntfile.js`).
+
+### 6. Documentation
+
+Please write JavaScript documentation according to [ESDoc](https://esdoc.org/) standards, and generate it using `esdoc`. JavaScript should be fully documented in order to reduce technical debt and increase readability, and for that purpose, ESDoc provides a coverage report.
 
 ### Appendix A: Ignored Files
 
