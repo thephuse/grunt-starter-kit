@@ -1,6 +1,18 @@
-.git
-.DS_STORE
-thumbs.db
-node_modules
-sass-cache
-.sass-cache
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# NodeJS #
+##########
+dist/
+node_modules/
+npm-debug.log
+npm-shrinkwrap.json
+.ftppass
+sftpCache.json

@@ -1,143 +1,62 @@
-Front-end Starter Kit
-=====================
+# Phuse Starter Kit
 
-The Front-end Starter Kit is a skinny collection of GruntJS modules that:
+## A platform-agnostic launchpad for your projects
 
-- Compile SCSS & SASS written using [Compass](http://compass-style.org), to plain CSS.
-- Compile CoffeeScript & JavaScript written using [Browserify](http://browserify.org), to plain JavaScript.
-- Optionally minify the compiled CSS and JavaScript, *OR*
-- Watch for changes to the source files, re-compile the unminified versions and update the browser on-the-fly.
+### 1. Contents
 
----
+- [Grunt](http://gruntjs.com/)
+- [Stylus](https://learnboost.github.io/stylus/)
+- [Autoprefixer](https://github.com/postcss/autoprefixer)
+- [Babel](https://babeljs.io/)
+- [Grunt SFTP Deploy](https://github.com/thrashr888/grunt-sftp-deploy)
+- [Twig](http://twig.sensiolabs.org/)
+- [Grunt Watch and Live Reload](https://github.com/gruntjs/grunt-contrib-watch)
+- [Webpack](https://webpack.github.io/)
 
-## 1. What platform is this for?
+All of the above tasks (aside from Grunt itself) are run via Grunt. They can be run individually, if so desired (see `gruntfile.js`), or they can be grouped in cumulative tasks listed in the Quick-Start Guide below.
 
-This repo is keyed towards Wordpress developers, and contains some PHP functions & features and Gruntfile directory specifications that won't be relevant to other platforms.
+In theory, Grunt can be hauled out and replaced with any node.js-based build system, but Grunt has proven to be stable and performant for the purposes of this Starter Kit, so it's the de facto choice for development.
 
-However, the Gruntfile.js can easily be edited to adapt it to any system of your choice.
+We use modular, classical ES2015 for all front-end JavaScript development work unless we're not allowed to, for any reason. Please bear this in mind when using this Starter Kit. The Babel Loader has been include in the Webpack Grunt task. It is up to you to decide what level of bleeding edge features you wish to use, but a good rule of thumb is to try to keep it as close to the [ECMA-262](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf) standard as possible, to ensure forwards-compatibility.
 
----
+### 2. Quick-Start Guide
 
-## 2. Setup instructions
+- Download and install [node.js](http://nodejs.org) or [io.js](http://iojs.org)
+- Pull this git repo
+- Open a terminal window
+- `npm install` - Installs all package dependencies
+- `grunt` - Builds and watches
+- `grunt dist` - Builds and minifies
+- `grunt stage` - Builds, minified and deploys. See below for more information.
 
-### 1. Prerequisites
+### 3. Folder Structure
 
-- [Node.js](http://nodejs.org)
-- [Ruby](http://ruby-lang.org)
+Files and folders have been arranged so as to maintain clear separation of the front-end stack, composability, reasonability, and compatibility with multiple CMS (e.g. we use Twig, which is incredibly powerful, works in Wordpress with Timber, as well as Drupal 8, and can easily be retrofit into ExpressionEngine).
 
-Install the above dependencies using the binaries of your choice. Latest versions recommended, but Ruby 1.9+ and Node.js 1.10+ should work just fine.
+Please check out the repo and have a look at `twig/index.twig`, `js/app.js` and `styl/app.styl` respectively, as well as the subfolders contained within their directories, to gain a good and easy-to-grok overview of the file and folder structure.
 
-### 2. Installation
+### 4. Live Reload
 
-- Open a terminal or command prompt window
-- `npm install -g grunt-cli`
-- `gem install compass`
-- `npm install`
-
----
-
-## 3. Running the script
-
-- From the same folder as your Gruntfile.js, run:
-   - `grunt build` to build once & minify JavaScript.
-   - `grunt` to initiate a continuous build without minifying JavaScript. This will watch for changes and automatically update the browser without the need to refresh.
-
----
-
-## 4. Changing theme path variables and live reload port numbers
-
-You'll find the `path` and `port` variables at the beginning of the Gruntfile.
-
-- Change `path` to reflect the absolute or relative path to the theme's directory.
-- Change the `port` number if running multiple instances of the build script, or if you chance upon a port conflict.
-
----
-
-## 5. Browserify and Compass
-
-- Separate your JavaScript and CoffeeScript files into modules using Browserify.
-   - Use the `require('foo')` function or the `var foo = require('foo')` declaration to include a dependency. You need not include the file extension for JavaScript, however you'll need it should you add a `.coffee` (or similar) extension to your CoffeeScript files.
-- Chunk your SASS and SCSS into modules using the `@import` directive in `app.{sass,scss}`.
-
----
-
-## 6. Compiled theme file hierarchy
-
+To enable live reload, add the line:
 ```
-theme
-|
-├── dist
-|   └── css
-|       └── app.css
-|   └── js
-|       └── app.js
-|       └── app.min.js
-|
-├── src
-|   └── sass
-|       └── *
-|           └── _*.{scss,sass}
-|       └── app.{scss,sass}
-|   └── js
-|       └── *
-|           └── *.{coffee,js}
-|       └── app.{coffee,js}
-|
-└── functions.php
+<script src="http://localhost:8001/livereload.js"></script>
 ```
+To your HTML files. This is best done using a single master Twig [layout](http://twig.sensiolabs.org/doc/tags/extends.html), so that it propagates to all the pages of your site. Using Live Reload is a lightweight, fully automated solution to your having to manually reload open pages in each of your open browsers, when a file is updated.
 
-Please note that all SCSS/SASS module file names should begin with an underscore (`_`). This prevents them from compiling to separate files in the `theme/dist` folder, and allows Compass and custom mixins to be used globally.
+Use the `grunt` command once you've done so, to kickstart Live Reload after an initial build.
 
-app.{coffee,js} and app.{scss,sass} should be as uncluttered as possible. Ideally, these will simply include other files, using `@import` for SCSS and `require()` for JS, by way of example.
+### 5. Configuration
 
-Please see the section on routing below for details on using page.js to clean up your app.js file.
+The `src/config` folder should contain only JSON files that can be used as configuration variables, both in JavaScript (using `include` statements) and in the `grunt-twig-render` task (the file location can be specified under `twigRender.static.files.data` in `gruntfile.js`).
 
----
+### Appendix A: Ignored Files
 
-## 7. JavaScript switchboard for Wordpress and other CMS
+By default, the `.gitignore` in this repo ignores all NPM package dependency files and operating system shrapnel. It also ignores files in the `dist` directory, as `dist` files ought not to be committed.
 
-Switchboard (AKA synchronous routing) logic for CMS front-ends can be built using `page.coffee`, included in the `theme/src/js/helpers` folder.
+### Appendix B: SFTP Deploy
 
-The Page function can be required as a CommonJS/Browserify module, or used standalone as `Page()`. It expects at least one argument: an object detailing page classes to check for, and an array of functions to invoke on each page.
+A task named `grunt-sftp-deploy` has been included. It's for deploying work to servers that do not allow direct SSH access and/or prevent Git from being installed. Please refer to [this documentation](https://github.com/thrashr888/grunt-sftp-deploy) about creating an `.ftppass` file to store usernames and passwords.
 
-It accepts a DOM node as a second argument, lest the `<body>` element not receive the class name required by the router.
+### Appendix C: Testing
 
-#### Example usage:
-
-``` javascript
-// Page.js
-var page = require('helpers/page');
-
-// Module dependencies
-var foo  = require('modules/foo');
-var bar  = require('modules/bar');
-var bat  = require('modules/bat');
-var all  = require('modules/all');
-
-page({
-  'foo' : [foo],
-  'bar' : [foo, ['bar', 'arg0', 'arg1']], // Note arguments
-  'bat' : [[bat, 1, foo]],
-  '*'   : [all]
-});
-```
-
-- Pass a single-dimensional array to define a function or a list of functions.
-	- In this example, `body.foo` invokes `foo()`.
-- Pass a multi-dimensional array to define a function or a list of functions with arguments.
-	- In the above example, `body.bar` invokes `foo()` and `bar('arg0', 'arg1')`.
-	- `body.bat` invokes `bat(1, foo)` (passing function foo to bat).
-- Use the `'*'` route to define functions to invoke on all pages.
-	- In the example, all pages will invoke the `all()` function.
-
----
-
-## 8. Wordpress functions.php
-
-Included with this build script is a Wordpress functions.php file with some basic hooks in place to detect whether the site is in debug mode and load the livereload script and uncompressed JavaScript conditionally.
-
-Set `define('WP_DEBUG', true)` in the site's `wp-config.php` and refresh the site once, to invoke the live reload script on all pages.
-
-Set `define('WP_DEBUG', false)` after invoking a `grunt build` to set the site to read the minified versions of the scripts and remove the live reload behaviour from the site.
-
-**N.B. Never release a Wordpress site with WP_DEBUG set to true.**
+Testing and coverage frameworks have been deliberately excluded from the Starter Kit to promote developer eccentricity and adaptability. Pick a test framework that works for you and a coverage kit that plays nicely with ECMAScript 2015.

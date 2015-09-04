@@ -1,0 +1,41 @@
+/**
+ * http://chir.ag/projects/name-that-color/
+ *
+ * Use a color naming application to name color variables.
+ * Write names in lowercase and remove all spaces from them.
+ *
+ * Please note that this is just a guideline. If two color
+ * value names conflict, use the color wheel to ensure there
+ * is a distinction between them. Conversely, you can use the
+ * information to remove excess shades of very similar colors
+ * from a design.
+ */
+
+$colors = {
+  black #000
+  white #fff
+}
+
+for $key, $value in $colors
+
+  .{$key}
+    background-color $value
+
+  .{$key}-hover
+    &:hover
+      background-color $value
+
+  .{$key}-active
+    &:active
+      background-color $value
+
+  .{$key}-text
+    color $value
+
+  .{$key}-text-hover
+    &:hover
+      color $value
+
+  .{$key}-text-active
+    &:active
+      color $value
