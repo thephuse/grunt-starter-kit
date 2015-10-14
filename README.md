@@ -1,4 +1,4 @@
-# Phuse Starter Kit
+# Phuse Grunt Starter Kit
 
 ## A platform-agnostic launchpad for your projects
 
