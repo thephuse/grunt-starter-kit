@@ -137,7 +137,7 @@ module.exports = function(grunt) {
           pretty: false
         },
         files: [{
-          data: "src/config/globals.json",
+          data: "src/config/example.json",
           cwd: "src/twig",
           src: ["*.twig"],
           dest: "dist",
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
       static: {
         auth: {
           host: "000.000.000.000",
-          port: 0000,
+          port: 22,
           authKey: "key1"
         },
         cache: "sftpCache.json",
